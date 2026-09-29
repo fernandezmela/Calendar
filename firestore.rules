@@ -1,8 +1,6 @@
 rules_version = '2';
 
-// Only these two Google accounts can read or write anything.
-// Paste this into Firebase → Firestore → Rules and put the real emails in THERE, all lowercase.
-// Leave the placeholders in this file so your emails never end up on GitHub.
+
 service cloud.firestore {
   match /databases/{database}/documents {
     match /{document=**} {
