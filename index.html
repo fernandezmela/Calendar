@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Six Hours Apart</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Nunito:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="band" aria-hidden="true"></div>
+<main class="wrap">
+  <section class="hero" aria-label="Both clocks">
+    <div class="clock a" id="clockA"></div>
+    <div class="between">
+      <div class="gap" id="gap">6 hours</div>
+      <svg viewBox="0 0 120 34" aria-hidden="true"><path d="M4 26 C 40 2, 80 2, 116 26" fill="none" stroke="var(--soft)" stroke-width="1.5" stroke-dasharray="3 5"/><g class="plane"><path d="M56 9 l10 3 l-10 3 l2 -3 z" fill="var(--a)"/><path d="M59 12 h-6" stroke="var(--a)" stroke-width="1.5"/></g></svg>
+      <div class="sub" id="gapSub">apart</div>
+    </div>
+    <div class="clock b" id="clockB"></div>
+  </section>
+
+  <section class="notes">
+    <div class="note visit"><div class="big" id="cdNum">?</div><div><div class="lbl">Next time together</div><p id="cdText"></p></div></div>
+    <div class="note call"><div class="big" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 36 36"><path d="M18 31s-11-7-11-15a6 6 0 0 1 11-3 6 6 0 0 1 11 3c0 8-11 15-11 15z" fill="var(--gold)" stroke="var(--stamp)" stroke-width="1.5"/></svg></div><div><div class="lbl">Both awake today</div><p id="callText"></p></div></div>
+  </section>
+
+  <div class="banner" id="banner" hidden></div>
+
+  <section class="bar" aria-label="Calendar controls">
+    <h2 id="rangeLabel">This week</h2>
+    <button class="btn icon" id="prev" aria-label="Previous">‹</button>
+    <button class="btn" id="today">Today</button>
+    <button class="btn icon" id="next" aria-label="Next">›</button>
+    <div class="seg" role="group" aria-label="View">
+      <button id="vWeek" aria-pressed="true">Week</button>
+      <button id="vDay" aria-pressed="false">Day</button>
+    </div>
+    <button class="btn primary" id="addBtn">+ Add</button>
+  </section>
+
+  <div class="legend" id="legend"></div>
+
+  <section class="cal" aria-label="Calendar">
+    <div class="scroll" id="scroll"><div id="calInner"></div></div>
+    <div class="empty" id="calEmpty" hidden></div>
+  </section>
+
+  <section class="lower">
+    <div class="card"><h3>Coming up</h3><ul class="agenda" id="agenda"></ul></div>
+    <div class="card help">
+      <h3>How this works</h3>
+      <p>Tap any hour to add something. Times always show in your own clock on the left and the other person's on the right.</p>
+      <p>Striped hours mean one of you is probably asleep. Gold hours are when you're both up.</p>
+      <p class="muted">You're viewing as <b id="meName">…</b>. <button class="linkish" id="switchMe">Switch</button> · <button class="linkish" id="editNames">Edit names</button> · <button class="linkish" id="signOutBtn">Sign out</button></p>
+    </div>
+  </section>
+  <footer id="foot"></footer>
+</main>
+
+<div class="scrim" id="formScrim" hidden>
+  <form class="sheet" id="form" novalidate>
+    <div class="band" aria-hidden="true"></div>
+    <h3 id="formTitle">New plan</h3>
+    <div class="field"><label for="fTitle">What</label><input type="text" id="fTitle" class="title-in" placeholder="FaceTime dinner date" autocomplete="off"></div>
+    <div class="field"><span class="lab">Kind</span><div class="seg full" id="fKind" role="group"><button type="button" data-v="plan">Plan</button><button type="button" data-v="task">Task</button><button type="button" data-v="visit">Visit</button></div></div>
+    <div class="field"><span class="lab">For</span><div class="seg full" id="fWho" role="group"><button type="button" data-v="a"></button><button type="button" data-v="b"></button><button type="button" data-v="both">Both of us</button></div></div>
+    <label class="check"><input type="checkbox" id="fAll"> All day</label>
+    <div id="timedFields">
+      <div class="row3">
+        <div class="field"><label for="fDate">Date</label><input type="date" id="fDate"></div>
+        <div class="field"><label for="fStart">Starts</label><input type="time" id="fStart"></div>
+        <div class="field"><label for="fEnd">Ends</label><input type="time" id="fEnd"></div>
+      </div>
+      <div class="field"><span class="lab">These times are in</span><div class="seg full" id="fTz" role="group"><button type="button" data-v="a"></button><button type="button" data-v="b"></button></div></div>
+    </div>
+    <div class="row" id="allFields" hidden>
+      <div class="field"><label for="fFrom">From</label><input type="date" id="fFrom"></div>
+      <div class="field"><label for="fTo">To</label><input type="date" id="fTo"></div>
+    </div>
+    <div class="preview" id="preview"></div>
+    <div class="field"><label for="fNote">Note</label><textarea id="fNote" placeholder="Optional"></textarea></div>
+    <div class="err" id="fErr" hidden></div>
+    <div class="actions"><button type="button" class="btn del" id="fDel" hidden>Delete</button><button type="button" class="btn" id="fCancel">Cancel</button><button type="submit" class="btn primary" id="fSave">Save</button></div>
+  </form>
+</div>
+
+<div class="scrim" id="pickScrim" hidden>
+  <div class="sheet">
+    <div class="band" aria-hidden="true"></div>
+    <h3>Who's looking?</h3>
+    <p style="margin:0;color:var(--soft);font-size:14px">This sets whose clock goes first on this device.</p>
+    <div class="pick">
+      <button type="button" class="who-a" data-me="a" id="pickA"></button>
+      <button type="button" class="who-b" data-me="b" id="pickB"></button>
+    </div>
+  </div>
+</div>
+
+<div class="scrim" id="namesScrim" hidden>
+  <form class="sheet" id="namesForm">
+    <div class="band" aria-hidden="true"></div>
+    <h3>Your names</h3>
+    <div class="field"><label for="nA" id="nALabel">In Boston</label><input type="text" id="nA" autocomplete="off"></div>
+    <div class="field"><label for="nB" id="nBLabel">In Madrid</label><input type="text" id="nB" autocomplete="off"></div>
+    <div class="actions"><button type="button" class="btn" id="nCancel">Cancel</button><button type="submit" class="btn primary">Save</button></div>
+  </form>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+
+<div class="scrim gate" id="gateScrim">
+  <div class="sheet">
+    <div class="band" aria-hidden="true"></div>
+    <h3 id="gateTitle">Our calendar</h3>
+    <p id="gateText">Sign in with Google to see your plans.</p>
+    <button type="button" class="btn primary" id="signInBtn">Sign in with Google</button>
+    <p class="err" id="gateErr" hidden></p>
+  </div>
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
